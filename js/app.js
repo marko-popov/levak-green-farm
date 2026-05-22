@@ -22,8 +22,8 @@ const prevodi = {
         "prod2_p": "Kod nas nema kaveza, industrijske hrane ni hemije. Sve što dolazi sa Levak Green Farm-a je plod čiste prirode Gvozdenovića, svežeg vazduha i ljubavi prema tradicionalnom načinu uzgoja.",
         "board_subtitle": "Vesti sa farme",
         "board_title": "Oglasna Tabla Isporuka",
-        "board_intro": "Svake nedelje donosimo svežinu direktno sa farmu na vaš prag na teritoriji Beograda.",
-        "board_note": "*Rezervacije se primaju najkasnije 24h pre datuma isporuke.",
+        "board_intro": "Primamo porudžbine do petka u 10:00h za subotu. Nakon toga, može se poručiti za sledeću subotu.",
+        "board_note": "*Rezervacije se vrše putem telefona ili društvenih mreža.",
         "location_subtitle": "Gde se nalazimo",
         "location_title": "Naša Lokacija",
         "location_p1": "Nalazimo se u prelepom i ekološki čistom selu Gvozdenović, opština Ub.",
@@ -56,8 +56,8 @@ const prevodi = {
         "prod2_p": "There are no cages, industrial feed, or chemicals here. Everything coming from Levak Green Farm is the fruit of Gvozdenović's pure nature, fresh air, and love for traditional farming.",
         "board_subtitle": "Farm News",
         "board_title": "Delivery Notice Board",
-        "board_intro": "Every week we bring freshness directly from the farm to your doorstep in the Belgrade area.",
-        "board_note": "*Reservations are accepted no later than 24 hours before the delivery date.",
+        "board_intro": "We accept orders until Friday at 10:00 AM for Saturday delivery. After that, orders are placed for the following Saturday.",
+        "board_note": "*Reservations can be made via phone or social media.",
         "location_subtitle": "Where We Are",
         "location_title": "Our Location",
         "location_p1": "We are located in the beautiful and ecologically clean village of Gvozdenović, Ub municipality.",
@@ -75,50 +75,35 @@ const prevodi = {
 const tekstoviOglasneTable = {
     sr: {
         lokacija: "Beograd - dostava na kućnu adresu",
-        dostupno: "Sveža jaja iz slobodnog uzgoja",
-        openText: "🟢 OTVORENE REZERVACIJE",
-        closedText: "🔴 ZATVORENE REZERVACIJE"
+        dostupno: "Sveža jaja iz slobodnog uzgoja"
     },
     en: {
         lokacija: "Belgrade - home delivery",
-        dostupno: "Fresh free-range eggs",
-        openText: "🟢 OPEN FOR ORDERS",
-        closedText: "🔴 ORDERS CLOSED"
+        dostupno: "Fresh free-range eggs"
     }
 };
 
 // =====================
-// TAČNA DATUM LOGIKA
+// TAČNA DATUM LOGIKA (Uvek prikazuje prvu subotu)
 // =====================
 
 function ProveriStatusIsporuke() {
     const now = new Date();
     
-    // Nađi trenutnu/najbližu subotu
+    // Nađi prvu najbližu subotu koja dolazi
     let isporukaSubota = new Date(now);
-    const tekuciDan = now.getDay(); // 0 = nedelja, 1 = ponedeljak ... 5 = petak, 6 = subota
+    const tekuciDan = now.getDay(); // 0 = nedelja, 1 = ponedeljak ... 6 = subota
     
+    // Računamo koliko dana ima do prve subote
     const danaDoSubote = (6 - tekuciDan + 7) % 7;
-    isporukaSubota.setDate(now.getDate() + danaDoSubote);
+    
+    // Ako je danas već subota, ostaje današnjica, a ako hoćeš da subotom odmah prebaci na sledeću, 
+    // možemo ostaviti ovako ili dodati uslov. Za sada uvek traži prvu subotu ispred nas:
+    isporukaSubota.setDate(now.getDate() + (danaDoSubote === 0 ? 0 : danaDoSubote));
     isporukaSubota.setHours(0, 0, 0, 0);
 
-    // Postavi tačan cutoff za TEKUĆU nedelju (Petak u 10:00 AM)
-    let cutoffPetak = new Date(isporukaSubota);
-    cutoffPetak.setDate(isporukaSubota.getDate() - 1); // Subota minus 1 dan je petak
-    cutoffPetak.setHours(10, 0, 0, 0);
-
-    let isOpen = true;
-
-    // GLAVNI USLOV: Ako je danas prošao petak 10:00 h, zatvaraj i prebaci na sledeću subotu
-    if (now > cutoffPetak) {
-        isOpen = false;
-        // Ako je petak uveče ili subota, prikazujemo informacije za SUBOTU SLEDEĆE NEDELJE
-        isporukaSubota.setDate(isporukaSubota.getDate() + 7);
-    }
-
     return {
-        datumIsporuke: isporukaSubota,
-        otvoreno: isOpen
+        datumIsporuke: isporukaSubota
     };
 }
 
@@ -132,17 +117,6 @@ function formatDate(date, lang) {
             year: 'numeric'
         }
     );
-}
-
-function getDaysLeft(targetDate) {
-    const now = new Date();
-    now.setHours(0,0,0,0);
-    const target = new Date(targetDate);
-    target.setHours(0,0,0,0);
-    
-    const diffTime = target - now;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays < 0 ? 0 : diffDays;
 }
 
 // =====================
@@ -167,16 +141,12 @@ function azurirajSajt(jezik) {
     const status = ProveriStatusIsporuke();
     
     const formattedDate = formatDate(status.datumIsporuke, jezik);
-    const daysLeft = getDaysLeft(status.datumIsporuke);
 
+    // IZBAČENI SVI ROKOVI I STATUSI IZ HTML ŠABLONA
     elTabla.innerHTML = `
         <span class="board-date" style="display:block; font-size:1.2rem; font-weight:700; margin-bottom:1rem;">📅 ${formattedDate}</span>
         <p style="margin-bottom:0.5rem;">📍 <strong>${jezik === 'sr' ? 'Lokacija' : 'Location'}:</strong> ${info.lokacija}</p>
-        <p style="margin-bottom:0.5rem;">🥚 <strong>${jezik === 'sr' ? 'Dostupno' : 'Available'}:</strong> ${info.dostupno}</p>
-        <p style="margin-bottom:1rem;">⏳ <strong>${jezik === 'sr' ? 'Dana do isporuke' : 'Days left'}:</strong> ${daysLeft}</p>
-        <div class="board-status" style="font-weight:700; font-size:1.1rem; margin-top:1rem;">
-            ${status.otvoreno ? info.openText : info.closedText}
-        </div>
+        <p style="margin-bottom:0rem;">🥚 <strong>${jezik === 'sr' ? 'Dostupno' : 'Available'}:</strong> ${info.dostupno}</p>
     `;
 }
 
