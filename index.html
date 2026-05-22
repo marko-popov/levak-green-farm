@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levak Green Farm | Organska Farma Gvozdenović</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-flex">
+            <img src="images/logo.png" alt="Levak Green Farm Logo" class="logo">
+            <nav class="nav-menu">
+                <a href="#o-nama" data-lang="nav_story">Naša Priča</a>
+                <a href="#proizvodi" data-lang="nav_products">Proizvodi</a>
+                <a href="#najave" data-lang="nav_delivery">Isporuka</a>
+                <a href="#kontakt" class="btn-nav" data-lang="nav_contact">Kontakt</a>
+            </nav>
+            <div class="lang-switcher">
+                <button id="lang-sr" class="active">SR</button> | 
+                <button id="lang-en">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 data-lang="hero_title">Levak Green Farm</h1>
+            <p data-lang="hero_p">Parče čistog raja u selu Gvozdenović nadomak Uba. Spajamo tradiciju, slobodan prostor i ljubav prema prirodi.</p>
+            <a href="#najave" class="btn-primary" data-lang="hero_btn">Pogledaj raspored isporuke</a>
+        </div>
+    </section>
+
+    <section id="o-nama" class="section bg-light">
+        <div class="container grid-2">
+            <div class="story-text">
+                <span class="subtitle" data-lang="story_subtitle">Kako je sve počelo</span>
+                <h2 data-lang="story_title">Naša Priča</h2>
+                <p data-lang="story_p1">Levak Green Farm je nastao iz želje da se vratimo korenima i stvorimo samoodrživu oazu. U srcu pitomog Gvozdenovića, odlučili smo da pokrenemo nešto drugačije — farmu gde životinje i priroda žive u potpunoj harmoniji.</p>
+                <p data-lang="story_p2">Naš fokus je na zdravom životu, slobodi kretanja naših životinja i apsolutno prirodnim procesima bez hemije i kompromisa.</p>
+            </div>
+            <div class="story-image">
+                <img src="images/photo1.png" alt="Priroda na farmi" class="img-responsive rounded">
+            </div>
+        </div>
+    </section>
+
+    <section id="proizvodi" class="section">
+        <div class="container text-center">
+            <span class="subtitle" data-lang="products_subtitle">Ono što stvaramo</span>
+            <h2 data-lang="products_title">Domaći Organski Proizvodi</h2>
+            
+            <div class="grid-2 product-container">
+                <div class="card">
+                    <div class="card-img-holder">
+                        <img src="images/photo2.jpg" alt="Domaća jaja" class="img-responsive">
+                    </div>
+                    <div class="card-body">
+                        <h3 data-lang="prod1_title">Domaća Jaja iz Slobodnog Uzgoja</h3>
+                        <p data-lang="prod1_p">Naše koke provode ceo dan na prostranim zelenim livadama i u slobodnom prostoru. Hrane se potpuno prirodno, što našim jajima daje prepoznatljivu jarko žutu boju, bogat ukus i vrhunski kvalitet.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img-holder">
+                        <img src="images/photo3.jpg" alt="Slobodan prostor na farmi" class="img-responsive">
+                    </div>
+                    <div class="card-body">
+                        <h3 data-lang="prod2_title">100% Organski i Prirodni Uzgoj</h3>
+                        <p data-lang="prod2_p">Kod nas nema kaveza, industrijske hrane ni hemije. Sve što dolazi sa Levak Green Farm-a je plod čiste prirode Gvozdenovića, svežeg vazduha i ljubavi prema tradicionalnom načinu uzgoja.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="najave" class="section bg-accent">
+        <div class="container text-center">
+            <div class="announcement-board">
+                <div class="board-pin"></div>
+                <span class="subtitle" data-lang="board_subtitle">Vesti sa farme</span>
+                <h2 data-lang="board_title">Oglasna Tabla Isporuka</h2>
+                <p class="board-intro" data-lang="board_intro">Svake nedelje donosimo svežinu direktno sa farme na vaš prag na teritoriji Beograda.</p>
+                
+                <div class="board-content" id="tabla-isporuka">
+                    <div class="loading-text">Učitavanje...</div>
+                </div>
+                
+                <p class="board-note" data-lang="board_note">*Rezervacije se primaju najkasnije 24h pre datuma isporuke.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <div class="container grid-2 items-center">
+            <div class="map-info">
+                <span class="subtitle" data-lang="location_subtitle">Gde se nalazimo</span>
+                <h2 data-lang="location_title">Naša Lokacija</h2>
+                <p data-lang="location_p1">Nalazimo se u prelepom i ekološki čistom selu <strong>Gvozdenović, opština Ub</strong>.</p>
+                <p data-lang="location_p2">Okruženi smo zelenilom, šumama i čistim vazduhom, što našim proizvodima daje posebnu notu zdravlja.</p>
+            </div>
+            <div class="map-container">
+                <div class="custom-map">
+                    <div class="map-bg-illustration">
+                        <div class="farm-marker">
+                            <span class="marker-pulse"></span>
+                            📍 <span>Levak Green Farm</span>
+                        </div>
+                        <div class="map-element tree-1">🌳</div>
+                        <div class="map-element tree-2">🌳</div>
+                        <div class="map-element chicken">🐓</div>
+                        <div class="map-element plant">🌱</div>
+                        <div class="map-label ub-label" data-lang="map_ub">← Ub (10-15 min)</div>
+                        <div class="map-label bg-label" data-lang="map_bg">Beograd (1h) →</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="section footer-section">
+        <div class="container text-center">
+            <span class="subtitle" data-lang="contact_subtitle">Ostanimo u kontaktu</span>
+            <h2 data-lang="contact_title">Naručite ili Nas Posetite</h2>
+            <p class="contact-lead" data-lang="contact_lead">Imate pitanja ili želite da obezbedite svoje zalihe za sledeću isporuku? Pišite nam ili nas pozovite direktno!</p>
+            
+            <div class="contact-links">
+                <a href="tel:+381601234567" class="contact-card">
+                    <span class="icon">📞</span>
+                    <h4 data-lang="card_phone">Telefon</h4>
+                    <p>+381 60 123 4567</p>
+                </a>
+
+                <a href="https://instagram.com/levak_green_farm" target="_blank" rel="noopener" class="contact-card">
+                    <span class="icon">📸</span>
+                    <h4>Instagram</h4>
+                    <p>@levak_green_farm</p>
+                </a>
+
+                <a href="mailto:info@levakgreenfarm.com" class="contact-card">
+                    <span class="icon">✉️</span>
+                    <h4>E-mail</h4>
+                    <p>info@levakgreenfarm.com</p>
+                </a>
+            </div>
+
+            <hr class="footer-divider">
+            <p class="copy">&copy; 2026 Levak Green Farm, Gvozdenović. <span data-lang="footer_copy">Sva prava zadržana.</span></p>
+        </div>
+    </section>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
